@@ -33,9 +33,30 @@ public class ProductoModelo {
         return values;
     }
 
+    public ArrayList<Product> getProductsByCategory(String categoryName) {
+        Client client = ResteasyClientBuilder.newClient();
+        WebTarget target = client.target("http://localhost:8080/parprdmcs/rest/parprdmcs/v1/categories/products/category/"+categoryName);
+        Response response = target.request().get();
+        GenericType<ArrayList<Product>> genericType = new GenericType<ArrayList<Product>>() {
+        };
+        ArrayList<Product> values = response.readEntity(genericType);
+        response.close();
+        return values;
+    }
+    
     public Product getProductById(Integer id) {
         Client client = ResteasyClientBuilder.newClient();
         WebTarget target = client.target("http://localhost:8080/parprdmcs/rest/parprdmcs/v1/categories/products/"+id);
+        Response response = target.request().get();
+        Product values = response.readEntity(Product.class);
+        
+        response.close();
+        return values;
+    }
+    
+    public Product getProductByName(String name) {
+        Client client = ResteasyClientBuilder.newClient();
+        WebTarget target = client.target("http://localhost:8080/parprdmcs/rest/parprdmcs/v1/categories/products/name/"+name);
         Response response = target.request().get();
         Product values = response.readEntity(Product.class);
         

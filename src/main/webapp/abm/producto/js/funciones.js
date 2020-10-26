@@ -9,6 +9,8 @@ function validacion() {
     var id = document.forms["elForm1"]["id"].value;
     var nombre = document.forms["elForm1"]["nombre"].value;
     var precio = document.forms["elForm1"]["precio"].value;
+    var categoria = document.forms["elForm1"]["categoria"].value;
+    var cantidad = document.forms["elForm1"]["categoria"].value;
     if (id.length > 12) {
         // Si no se cumple la condicion...
         alert('[ERROR] El campo id debe tener mas de 12 caracteres');
@@ -29,7 +31,30 @@ function validacion() {
         alert('[ERROR] El campo precio debe tener mas de 50 caracteres');
         return false;
     }
+    
     if (isNaN(precio)) {
+        // Si no se cumple la condicion...
+        alert('[ERROR] El campo precio debe ser numerico');
+        return false;
+    }
+    if (cantidad.length > 10) {
+        // Si no se cumple la condicion...
+        alert('[ERROR] El campo precio debe tener mas de 50 caracteres');
+        return false;
+    }
+    
+    if (isNaN(cantidad)) {
+        // Si no se cumple la condicion...
+        alert('[ERROR] El campo precio debe ser numerico');
+        return false;
+    }
+    if (categoria.length > 12) {
+        // Si no se cumple la condicion...
+        alert('[ERROR] El campo precio debe tener mas de 50 caracteres');
+        return false;
+    }
+    
+    if (isNaN(categoria)) {
         // Si no se cumple la condicion...
         alert('[ERROR] El campo precio debe ser numerico');
         return false;

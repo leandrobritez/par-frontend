@@ -24,25 +24,29 @@ public class Pruebas {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        ProductoModelo um = new ProductoModelo();
-//        CategoryModelo cm = new CategoryModelo();
+        ProductoModelo um = new ProductoModelo();
+        CategoryModelo cm = new CategoryModelo();
+        CarritoImpl carrito = new CarritoImpl();
 //        Category c =  new Category(1,"Electrodomesticos");
-//        cm.modificarCategory(c);
+        carrito.agregarProducto(1, 541);
+        System.out.println(carrito.getCantidadProductos(1));
+
+//          System.out.println(cm.getCategoryById(1));
 //        Product p = new Product(5,"subarus",c,Long.valueOf("5000"),4);
 //        um.addProduct(p);
 
-        UserModelo usm = new UserModelo();
-        User u = new User();
-        u.setName("Justo");
-        u.setLastname("Machuca");
-        u.setId(2);
-//        usm.addUser(u);
-        u.setLastname("Machuca Cabral");
-        u.setEmail("m.machuca@pol.una.py");
-        u.setLoginName("m.justo");
-        u.setPasswd("12345");
-        usm.modificarUser(u);
-        System.out.println(usm.getUser());
+//        UserModelo usm = new UserModelo();
+//        User u = new User();
+//        u.setName("Justito");
+//        u.setLastname("Machuca");
+//        u.setId(1);
+////        usm.addUser(u);
+//        u.setLastname("Machuca Cabral");
+//        u.setEmail("m.machuca@pol.una.py");
+//        u.setLoginName("m.justo");
+//        u.setPasswd("12345");
+//        usm.modificarUser(u);
+//        System.out.println(usm.getUser());
     }
 
 }

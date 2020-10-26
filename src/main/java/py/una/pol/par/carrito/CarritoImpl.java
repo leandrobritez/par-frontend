@@ -44,6 +44,16 @@ public class CarritoImpl {
         }
 
     }
+    
+    public void modificarCantidad(Integer idProducto,Integer cantidad) {
+        for (int i = 0; i < this.carrito.size(); i++) {
+            if (idProducto == this.carrito.get(i).getProduct().getId()) {
+                this.carrito.get(i).setCantidad(cantidad);
+
+            }
+        }
+
+    }
 
     public boolean containsProducto(Integer idProducto) {
         for (int i = 0; i < this.carrito.size(); i++) {
@@ -54,6 +64,17 @@ public class CarritoImpl {
         }
 
         return false;
+    }
+    
+    public Integer getCantidadProductos(Integer idProducto) {
+        for (int i = 0; i < this.carrito.size(); i++) {
+            if (idProducto == this.carrito.get(i).getProduct().getId()) {
+                
+                return this.carrito.get(i).getCantidad();
+            }
+        }
+
+        return 0;
     }
     
     private void agregarCantidad(Integer idProducto, Integer cantidad) {

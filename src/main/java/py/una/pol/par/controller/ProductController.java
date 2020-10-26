@@ -3,26 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package py.una.pol.par.carrito;
+package py.una.pol.par.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.ClientErrorException;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.WebTarget;
+import py.una.pol.par.client.CategoryModelo;
+import py.una.pol.par.client.ProductoModelo;
+import py.una.pol.par.entity.Category;
+import py.una.pol.par.entity.Product;
 
 /**
  *
  * @author justo
  */
-@WebServlet(name = "CarritoServlet", urlPatterns = "/CarritoServlet")
-public class CarritoServlet extends HttpServlet {
+@WebServlet(name = "ProductController", urlPatterns = {"/productController"})
+public class ProductController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,8 +35,6 @@ public class CarritoServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private CarritoImpl carrito = null;
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -43,10 +43,10 @@ public class CarritoServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CarritoServlet</title>");            
+            out.println("<title>Servlet ProductController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CarritoServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ProductController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,18 +64,7 @@ public class CarritoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/compras/carrito.jsp");
-        carrito = (CarritoImpl) request.getSession().getAttribute("carrito");
-        if(carrito == null){
-           carrito = new CarritoImpl();
-           request.getSession().setAttribute("carrito",carrito);
-        
-        }
-        //falta vista que consumira peticion
-        dispatcher.forward(request, response);
-        
-        
-        
+        processRequest(request, response);
     }
 
     /**
@@ -89,50 +78,29 @@ public class CarritoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Integer idProducto = Integer.valueOf(request.getParameter("idProducto"));
-        Integer cantidad = Integer.valueOf(request.getParameter("cantidad"));
-        
-        carrito = (CarritoImpl) request.getSession().getAttribute("carrito");
-        if(carrito == null){
-           carrito = new CarritoImpl();
-           request.getSession().setAttribute("carrito",carrito);
-        
-        }
-        
-        carrito.agregarProducto(idProducto, cantidad);
-        //falta vista que consumira peticion
-        processRequest(request, response);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/crearProducto.jsp");
+        ProductoModelo model = new ProductoModelo();
+        CategoryModelo cmodel = new CategoryModelo();
+            String id = request.getParameter("id");
+            String nombre = request.getParameter("nombre");
+            Long precio = Long.valueOf(request.getParameter("precio"));
+            Integer cantidad = Integer.valueOf(request.getParameter("cantidad"));
+            Category categoria = cmodel.getCategoryById(Integer.valueOf(request.getParameter("categoria")));
+            Product product = new Product(Integer.valueOf(id.trim()), nombre,categoria, precio, cantidad);
+            Product newProduct = model.getProductById(Integer.valueOf(id.trim()));
+            request.setAttribute("newProduct", newProduct);
+            request.setAttribute("product", product);
+        dispatcher.forward(request, response);
     }
-    @Override
-    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        Integer idProducto = Integer.valueOf(request.getParameter("idProducto"));
-        
-        carrito = (CarritoImpl) request.getSession().getAttribute("carrito");
-        if(carrito == null){
-           carrito = new CarritoImpl();
-           request.getSession().setAttribute("carrito",carrito);
-        
-        }
-        
-        carrito.eliminarProducto(idProducto);
-        //falta vista que consumira peticion
-        processRequest(request, response);
-    }
-    
 
     /**
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
      */
-    
-    
     @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    
 
 }

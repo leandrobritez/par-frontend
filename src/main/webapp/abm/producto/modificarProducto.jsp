@@ -21,8 +21,9 @@
         Product product = model.getProductById(Integer.valueOf(request.getParameter("id")));
         String id = String.valueOf(product.getId());
         String nombre = product.getName();
-        String precio = product.getPrecio();
-        
+        Long precio = product.getPrice();
+        Integer cantidad = product.getAmount();
+        String categoria = String.valueOf(product.getCategory().getId());
         %>
         <div id="formulario">
         <form name="elForm1" action="modificarProductoOK.jsp" onsubmit="return validacionM()" method="post" >
@@ -31,6 +32,12 @@
             <br/>
             Precio:
             <input type="text" name="precio" value="<%=precio%>">
+            <br/>
+            Cantidad:
+            <input type="text" name="cantidad" value="<%=cantidad%>">
+            <br/>
+            Categoria:
+            <input type="text" name="categoria" value="<%=categoria%>">
             <br/>
             <p><input type="submit" value="Enviar"></p>
             <input  name="id" type="hidden" value=<%=id%>>

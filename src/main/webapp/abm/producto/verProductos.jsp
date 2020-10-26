@@ -29,13 +29,17 @@
             out.println("<th>Id</th>");
             out.println("<th>Nombre</th>");
             out.println("<th>Precio</th>");
+            out.println("<th>Categoria</th>");
+            out.println("<th>Cantidad</th>");
             out.println("<th>Modificar</th>");
             out.println("<th>Eliminar</th>");
             for (int i = 0; i < list.size(); i++) {
                 out.println("<tr>");
                 out.println("<td>" + list.get(i).getId() + "</td>");
                 out.println("<td>" + list.get(i).getName() + "</td>");
-                out.println("<td>" + list.get(i).getPrecio() + "</td>");
+                out.println("<td>" + list.get(i).getPrice() + "</td>");
+                out.println("<td>" + list.get(i).getCategory().getName() + "</td>");
+                out.println("<td>" + list.get(i).getAmount() + "</td>");
                 out.println("<td>" + "<button onclick=\"location.href= 'modificarProducto.jsp?id=" + list.get(i).getId()+"' \" type=\"button\"  >OK</button>" + "</td>");
                 out.println("<td>" + "<a href= 'eliminarProducto.jsp?id=" + list.get(i).getId()+"'  type=\"button\"  onclick=\"return asegurar();\" >OK</a>" + "</td>");
                 out.println("</tr>");
